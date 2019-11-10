@@ -1,4 +1,4 @@
-package casas.fabiel.maproutedrawer.data
+package casas.fabiel.maproutedrawer.data.request
 
 import com.google.android.gms.maps.model.LatLng
 

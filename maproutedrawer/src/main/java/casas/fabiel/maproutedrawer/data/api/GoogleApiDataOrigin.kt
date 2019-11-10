@@ -1,5 +1,6 @@
-package casas.fabiel.maproutedrawer.data
+package casas.fabiel.maproutedrawer.data.api
 
+import casas.fabiel.maproutedrawer.data.request.GoogleApiRequest
 import casas.fabiel.maproutedrawer.data.setup.RetrofitConfigurator
 import com.google.gson.JsonElement
 import io.reactivex.Observable

@@ -1,7 +1,7 @@
 package casas.fabiel.maproutedrawer.builder
 
-import casas.fabiel.maproutedrawer.data.GoogleApiRequest
-import casas.fabiel.maproutedrawer.data.GoogleApiRequestImpl
+import casas.fabiel.maproutedrawer.data.request.GoogleApiRequest
+import casas.fabiel.maproutedrawer.data.request.GoogleApiRequestImpl
 import com.google.android.gms.maps.model.LatLng
 
 class DrawerConfigurationBuilder {
@@ -38,13 +38,6 @@ class DrawerConfigurationBuilder {
     }
 
     fun build(): GoogleApiRequest {
-        if (origin.latitude == 0.0 && origin.longitude == 0.0) {
-            throw Exception("Origin is needed")
-        }
-
-        if (destination.latitude == 0.0 && destination.longitude == 0.0) {
-            throw Exception("Destination is needed")
-        }
         return GoogleApiRequestImpl(
             sensor,
             drivingMode,
