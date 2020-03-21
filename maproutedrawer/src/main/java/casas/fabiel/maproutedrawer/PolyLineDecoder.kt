@@ -19,7 +19,7 @@ class PolyLineDecoder(encoded: String) {
                 var shift = 0
                 var result = 0
                 do {
-                    basic = it.get(index++).toInt() - 63
+                    basic = it[index++].toInt() - 63
                     result = result or (basic and 0x1f shl shift)
                     shift += 5
                 } while (basic >= 0x20)
@@ -28,7 +28,7 @@ class PolyLineDecoder(encoded: String) {
                 shift = 0
                 result = 0
                 do {
-                    basic = it.get(index++).toInt() - 63
+                    basic = it[index++].toInt() - 63
                     result = result or (basic and 0x1f shl shift)
                     shift += 5
                 } while (basic >= 0x20)

@@ -2,6 +2,8 @@ package com.casas.fabiel.mapdrawer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import casas.fabiel.maproutedrawer.TheDrawer
+import casas.fabiel.maproutedrawer.TheDrawerApiManager
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -39,5 +41,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    }
+
+    private fun setupMapRout(){
+        val theDrawer = TheDrawer(mMap)
+        val drawerApiManager = TheDrawerApiManager(theDrawer)
+        drawerApiManager.drawPath(LatLng(52.3602621, 4.9043372), LatLng(52.3432838, 4.8500318))
     }
 }

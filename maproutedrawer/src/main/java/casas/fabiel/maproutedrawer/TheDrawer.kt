@@ -1,26 +1,15 @@
 package casas.fabiel.maproutedrawer
 
-import casas.fabiel.maproutedrawer.data.api.GoogleApiDataOrigin
-import casas.fabiel.maproutedrawer.data.request.GoogleApiRequest
-import casas.fabiel.maproutedrawer.models.TheDrawerModel
-import casas.fabiel.maproutedrawer.presenter.TheDrawerPresenter
-import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.PolylineOptions
 
-class TheDrawer {
+class TheDrawer(val googleMap: GoogleMap): TheDrawerListener {
 
-    private var presenter: TheDrawerPresenter
-
-    init {
-        val googleApi = GoogleApiDataOrigin()
-        val model = TheDrawerModel(googleApi)
-        presenter = TheDrawerPresenter(model)
+    override fun drawPolyLines(polyLinesEncodes: String) {
+        val polyLineDecoder = PolyLineDecoder(polyLinesEncodes)
+        val polyLineOptions = PolylineOptions()
+        polyLineOptions.addAll(polyLineDecoder.polyLinesPoints)
+        googleMap.addPolyline(polyLineOptions)
     }
 
-    fun setDefaultApiConfiguration(googleApiRequest: GoogleApiRequest) {
-        presenter.setApiDefaultConfiguration(googleApiRequest)
-    }
-
-    fun drawPath(origin: LatLng, destination: LatLng) {
-        presenter.drawPath(origin, destination)
-    }
 }
