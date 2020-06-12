@@ -11,6 +11,7 @@ class DrawerConfigurationBuilder {
     private var alternatives: Boolean = true
     private var origin: LatLng = LatLng(0.0, 0.0)
     private var destination: LatLng = LatLng(0.0, 0.0)
+    private var googleApiKey: String = ""
 
     fun setDestination(destination: LatLng): DrawerConfigurationBuilder {
         this.destination = destination
@@ -37,13 +38,19 @@ class DrawerConfigurationBuilder {
         return this
     }
 
+    fun setGoogleApiKey(googleApiKey: String): DrawerConfigurationBuilder {
+        this.googleApiKey = googleApiKey
+        return this
+    }
+
     fun build(): GoogleApiRequest {
         return GoogleApiRequestImpl(
             sensor,
             drivingMode,
             alternatives,
             origin,
-            destination
+            destination,
+            googleApiKey
         )
     }
 }

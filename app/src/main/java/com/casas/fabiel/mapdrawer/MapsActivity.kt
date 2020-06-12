@@ -4,16 +4,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import casas.fabiel.maproutedrawer.TheDrawer
 import casas.fabiel.maproutedrawer.TheDrawerApiManager
+import casas.fabiel.maproutedrawer.builder.DrawerConfigurationBuilder
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    private lateinit var amsterdamB: LatLng
+    private lateinit var amsterdamA: LatLng
     private lateinit var mMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,14 +42,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        amsterdamA = LatLng(52.380726, 4.8836949)
+        mMap.addMarker(MarkerOptions().position(amsterdamA).title("Marker in Amsterdam A"))
+        amsterdamB = LatLng(52.3720804, 4.8963979)
+        mMap.addMarker(MarkerOptions().position(amsterdamB).title("Marker in Amsterdam B"))
+        mMap.setOnMapLoadedCallback {
+            mMap.moveCamera(
+                CameraUpdateFactory.newLatLngBounds(
+                    LatLngBounds(
+                        amsterdamA,
+                        amsterdamB
+                    ), 12
+                )
+            )
+        }
+        setupMapRout()
     }
 
-    private fun setupMapRout(){
+    private fun setupMapRout() {
         val theDrawer = TheDrawer(mMap)
-        val drawerApiManager = TheDrawerApiManager(theDrawer)
-        drawerApiManager.drawPath(LatLng(52.3602621, 4.9043372), LatLng(52.3432838, 4.8500318))
+        val drawerApiManager = TheDrawerApiManager(
+            theDrawer,
+            getString(R.string.google_maps_key)
+        )
+        drawerApiManager.drawPath(amsterdamA, amsterdamB)
     }
 }

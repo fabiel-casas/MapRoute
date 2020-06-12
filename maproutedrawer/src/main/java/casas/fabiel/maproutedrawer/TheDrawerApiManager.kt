@@ -1,12 +1,15 @@
 package casas.fabiel.maproutedrawer
 
+import casas.fabiel.maproutedrawer.builder.DrawerConfigurationBuilder
 import casas.fabiel.maproutedrawer.data.api.GoogleApiDataOrigin
-import casas.fabiel.maproutedrawer.data.request.GoogleApiRequest
 import casas.fabiel.maproutedrawer.models.TheDrawerModel
 import casas.fabiel.maproutedrawer.presenter.TheDrawerPresenter
 import com.google.android.gms.maps.model.LatLng
 
-class TheDrawerApiManager(val theDrawerListener: TheDrawerListener) {
+class TheDrawerApiManager(
+    private val theDrawerListener: TheDrawerListener,
+    private val googleApiKey: String
+) {
 
     private var presenter: TheDrawerPresenter
 
@@ -16,12 +19,13 @@ class TheDrawerApiManager(val theDrawerListener: TheDrawerListener) {
         presenter = TheDrawerPresenter(model)
     }
 
-    fun setDefaultApiConfiguration(googleApiRequest: GoogleApiRequest) {
-        presenter.setApiDefaultConfiguration(googleApiRequest)
-    }
-
     fun drawPath(origin: LatLng, destination: LatLng) {
-        presenter.drawPath(origin, destination)
+        val drawerConfiguration = DrawerConfigurationBuilder()
+            .setOrigin(origin)
+            .setDestination(destination)
+            .setGoogleApiKey(googleApiKey)
+            .build()
+        presenter.drawPath(drawerConfiguration)
             .subscribe {
                 theDrawerListener.drawPolyLines(it)
             }

@@ -1,6 +1,5 @@
 package casas.fabiel.maproutedrawer.data.request
 
-import casas.fabiel.maproutedrawer.CacheData
 import com.google.android.gms.maps.model.LatLng
 
 internal class GoogleApiRequestImpl(
@@ -8,11 +7,12 @@ internal class GoogleApiRequestImpl(
     private val drivingMode: String,
     private val alternatives: Boolean,
     private val origin: LatLng,
-    private val destination: LatLng
+    private val destination: LatLng,
+    private val googleKey: String
 ) : GoogleApiRequest {
 
     override fun googleKey(): String {
-        return CacheData.googleKey
+        return googleKey
     }
 
     override fun sensor(): Boolean {
