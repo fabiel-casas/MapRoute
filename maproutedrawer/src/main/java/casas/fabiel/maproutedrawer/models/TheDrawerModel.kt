@@ -17,11 +17,15 @@ class TheDrawerModel(private val googleApi: GoogleApiDataOrigin) {
             .observeOn(AndroidSchedulers.mainThread())
             .map {
                 val json = it.body()?.asJsonObject
-                val routeArray = json?.getAsJsonArray("routes")
-                val routes = routeArray?.get(0)?.asJsonObject
-                val overviewPolylines = routes?.getAsJsonObject("overview_polyline")
-                val encodedString = overviewPolylines?.getAsJsonObject("points")?.asString
-                encodedString
+                return@map if (json?.get("status").toString() == "\"REQUEST_DENIED\"") {
+                    throw Exception(json?.get("error_message").toString())
+                } else {
+                    val routeArray = json?.getAsJsonArray("routes")
+                    val routes = routeArray?.get(0)?.asJsonObject
+                    val overviewPolylines = routes?.getAsJsonObject("overview_polyline")
+                    val encodedString = overviewPolylines?.get("points")?.asString
+                    encodedString
+                }
             }
     }
 }

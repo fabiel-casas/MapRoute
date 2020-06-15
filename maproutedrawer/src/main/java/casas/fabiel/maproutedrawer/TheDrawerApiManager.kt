@@ -5,6 +5,7 @@ import casas.fabiel.maproutedrawer.data.api.GoogleApiDataOrigin
 import casas.fabiel.maproutedrawer.models.TheDrawerModel
 import casas.fabiel.maproutedrawer.presenter.TheDrawerPresenter
 import com.google.android.gms.maps.model.LatLng
+import io.reactivex.functions.Consumer
 
 class TheDrawerApiManager(
     private val theDrawerListener: TheDrawerListener,
@@ -26,8 +27,10 @@ class TheDrawerApiManager(
             .setGoogleApiKey(googleApiKey)
             .build()
         presenter.drawPath(drawerConfiguration)
-            .subscribe {
+            .subscribe(Consumer {
                 theDrawerListener.drawPolyLines(it)
-            }
+            }, Consumer {
+                it.printStackTrace()
+            })
     }
 }

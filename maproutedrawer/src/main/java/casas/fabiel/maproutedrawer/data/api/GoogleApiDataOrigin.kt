@@ -15,10 +15,10 @@ class GoogleApiDataOrigin {
             .getDefaultMapRout(
                 request.origin(),
                 request.destination(),
-                request.sensor(),
                 request.drivingMode(),
                 request.drivingMode(),
-                request.googleKey()
+                request.googleKey(),
+                request.sensor()
             )
     }
 

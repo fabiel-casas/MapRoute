@@ -1,11 +1,9 @@
 package com.casas.fabiel.mapdrawer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import casas.fabiel.maproutedrawer.TheDrawer
 import casas.fabiel.maproutedrawer.TheDrawerApiManager
-import casas.fabiel.maproutedrawer.builder.DrawerConfigurationBuilder
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,7 +16,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var amsterdamB: LatLng
     private lateinit var amsterdamA: LatLng
-    private lateinit var mMap: GoogleMap
+    private lateinit var googleMaps: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,20 +37,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        googleMaps = googleMap
 
         // Add a marker in Sydney and move the camera
         amsterdamA = LatLng(52.380726, 4.8836949)
-        mMap.addMarker(MarkerOptions().position(amsterdamA).title("Marker in Amsterdam A"))
+        googleMaps.addMarker(MarkerOptions().position(amsterdamA).title("Marker in Amsterdam A"))
         amsterdamB = LatLng(52.3720804, 4.8963979)
-        mMap.addMarker(MarkerOptions().position(amsterdamB).title("Marker in Amsterdam B"))
-        mMap.setOnMapLoadedCallback {
-            mMap.moveCamera(
+        googleMaps.addMarker(MarkerOptions().position(amsterdamB).title("Marker in Amsterdam B"))
+        googleMaps.setOnMapLoadedCallback {
+            val latLngBounds = LatLngBounds.Builder()
+            latLngBounds.include(amsterdamA)
+            latLngBounds.include(amsterdamB)
+            googleMaps.animateCamera(
                 CameraUpdateFactory.newLatLngBounds(
-                    LatLngBounds(
-                        amsterdamA,
-                        amsterdamB
-                    ), 12
+                    latLngBounds.build(), 200
                 )
             )
         }
@@ -60,10 +58,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setupMapRout() {
-        val theDrawer = TheDrawer(mMap)
+        val theDrawer = TheDrawer(googleMaps)
         val drawerApiManager = TheDrawerApiManager(
             theDrawer,
-            getString(R.string.google_maps_key)
+            getString(R.string.google_directions_maps_key)
         )
         drawerApiManager.drawPath(amsterdamA, amsterdamB)
     }

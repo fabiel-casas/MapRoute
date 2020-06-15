@@ -12,9 +12,9 @@ interface GoogleApi {
     fun getDefaultMapRout(
         @Query("origin") origin: String,
         @Query("destination") destination: String,
-        @Query("sensor") sensor: Boolean,
         @Query("mode") mode: String,
         @Query("alternatives") alternatives: String,
-        @Query("key") key: String
+        @Query("key") key: String,
+        @Query("sensor") sensor: Boolean
     ): Observable<Response<JsonElement>>
 }
