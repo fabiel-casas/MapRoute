@@ -3,7 +3,7 @@ package casas.fabiel.maproutedrawer
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.PolylineOptions
 
-class TheDrawer(val googleMap: GoogleMap): TheDrawerListener {
+class TheDrawer(private val googleMap: GoogleMap): TheDrawerListener {
 
     override fun drawPolyLines(polyLinesEncodes: String) {
         val polyLineDecoder = PolyLineDecoder(polyLinesEncodes)
