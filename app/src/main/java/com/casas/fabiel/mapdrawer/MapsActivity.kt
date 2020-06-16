@@ -2,7 +2,7 @@ package com.casas.fabiel.mapdrawer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import casas.fabiel.maproutedrawer.TheDrawer
+import casas.fabiel.maproutedrawer.drawer.TheDrawer
 import casas.fabiel.maproutedrawer.TheDrawerApiManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

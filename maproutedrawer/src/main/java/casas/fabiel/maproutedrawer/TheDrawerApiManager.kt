@@ -1,7 +1,7 @@
 package casas.fabiel.maproutedrawer
 
-import casas.fabiel.maproutedrawer.builder.DrawerConfigurationBuilder
 import casas.fabiel.maproutedrawer.data.api.GoogleApiDataOrigin
+import casas.fabiel.maproutedrawer.data.request.GoogleApiConfig
 import casas.fabiel.maproutedrawer.models.TheDrawerModel
 import casas.fabiel.maproutedrawer.presenter.TheDrawerPresenter
 import com.google.android.gms.maps.model.LatLng
@@ -21,7 +21,7 @@ class TheDrawerApiManager(
     }
 
     fun drawPath(origin: LatLng, destination: LatLng) {
-        val drawerConfiguration = DrawerConfigurationBuilder()
+        val drawerConfiguration = GoogleApiConfig.Builder()
             .setOrigin(origin)
             .setDestination(destination)
             .setGoogleApiKey(googleApiKey)
