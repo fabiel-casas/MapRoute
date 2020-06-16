@@ -39,7 +39,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         googleMaps = googleMap
 
-        // Add a marker in Sydney and move the camera
+        // Add a markers in Amsterdam and load polylines
         amsterdamA = LatLng(52.380726, 4.8836949)
         googleMaps.addMarker(MarkerOptions().position(amsterdamA).title("Marker in Amsterdam A"))
         amsterdamB = LatLng(52.3720804, 4.8963979)
