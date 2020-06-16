@@ -2,7 +2,7 @@ package casas.fabiel.maproutedrawer.data.request
 
 import com.google.android.gms.maps.model.LatLng
 
-class GoogleApiConfig(
+class GoogleApiConfig private constructor(
     private val sensor: Boolean,
     private val drivingMode: String,
     private val alternatives: Boolean,
@@ -11,29 +11,12 @@ class GoogleApiConfig(
     private val googleKey: String
 ) : GoogleApiRequest {
 
-    override fun googleKey(): String {
-        return googleKey
-    }
-
-    override fun sensor(): Boolean {
-        return sensor
-    }
-
-    override fun drivingMode(): String {
-        return drivingMode
-    }
-
-    override fun alternatives(): Boolean {
-        return alternatives
-    }
-
-    override fun origin(): String {
-        return "${origin.latitude},${origin.longitude}"
-    }
-
-    override fun destination(): String {
-        return "${destination.latitude},${destination.longitude}"
-    }
+    override fun googleKey(): String = googleKey
+    override fun sensor(): Boolean = sensor
+    override fun drivingMode(): String = drivingMode
+    override fun alternatives(): Boolean = alternatives
+    override fun origin(): String = "${origin.latitude},${origin.longitude}"
+    override fun destination(): String = "${destination.latitude},${destination.longitude}"
 
     data class Builder(
         private var sensor: Boolean = false,
@@ -44,29 +27,17 @@ class GoogleApiConfig(
         private var googleApiKey: String = ""
     ) {
 
-        fun setDestination(destination: LatLng) = apply {
-            this.destination = destination
-        }
+        fun setDestination(destination: LatLng) = apply { this.destination = destination }
 
-        fun setOrigin(origin: LatLng) = apply {
-            this.origin = origin
-        }
+        fun setOrigin(origin: LatLng) = apply { this.origin = origin }
 
-        fun setAlternatives(alternatives: Boolean) = apply {
-            this.alternatives = alternatives
-        }
+        fun setAlternatives(alternatives: Boolean) = apply { this.alternatives = alternatives }
 
-        fun setDrivingMode(drivingMode: String) = apply {
-            this.drivingMode = drivingMode
-        }
+        fun setDrivingMode(drivingMode: String) = apply { this.drivingMode = drivingMode }
 
-        fun setSensor(sensor: Boolean) = apply {
-            this.sensor = sensor
-        }
+        fun setSensor(sensor: Boolean) = apply { this.sensor = sensor }
 
-        fun setGoogleApiKey(googleApiKey: String) = apply {
-            this.googleApiKey = googleApiKey
-        }
+        fun setGoogleApiKey(googleApiKey: String) = apply { this.googleApiKey = googleApiKey }
 
         fun build(): GoogleApiRequest = GoogleApiConfig(
             sensor,

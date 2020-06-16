@@ -4,12 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import casas.fabiel.maproutedrawer.drawer.TheDrawer
 import casas.fabiel.maproutedrawer.TheDrawerApiManager
-import com.google.android.gms.maps.CameraUpdateFactory
+import casas.fabiel.maproutedrawer.drawer.data.CameraAnimationMode
+import casas.fabiel.maproutedrawer.drawer.data.DrawerConfig
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -45,20 +45,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         amsterdamB = LatLng(52.3720804, 4.8963979)
         googleMaps.addMarker(MarkerOptions().position(amsterdamB).title("Marker in Amsterdam B"))
         googleMaps.setOnMapLoadedCallback {
-            val latLngBounds = LatLngBounds.Builder()
-            latLngBounds.include(amsterdamA)
-            latLngBounds.include(amsterdamB)
-            googleMaps.animateCamera(
-                CameraUpdateFactory.newLatLngBounds(
-                    latLngBounds.build(), 200
-                )
-            )
+            setupMapRoute()
         }
-        setupMapRout()
     }
 
-    private fun setupMapRout() {
+    private fun setupMapRoute() {
+        //create path drawer reference
         val theDrawer = TheDrawer(googleMaps)
+        //create drawer configuration
+        val theDrawerConfig = DrawerConfig.Builder()
+            .setCameraMovementMode(CameraAnimationMode.ANIMATED)
+            .build()
+        theDrawer.setDrawerConfigurator(theDrawerConfig)
         val drawerApiManager = TheDrawerApiManager(
             theDrawer,
             getString(R.string.google_directions_maps_key)

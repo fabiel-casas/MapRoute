@@ -9,4 +9,5 @@ interface DrawerConfigurator {
     fun isClickable(): Boolean
     fun getStartCap(): Cap
     fun getEndCap(): Cap
+    fun getCameraMovementOverRoute(): CameraAnimationMode
 }
